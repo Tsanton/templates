@@ -1,0 +1,13 @@
+name: hello-you-remote-action
+description: Greeting
+inputs:
+  name:
+    description: Name to say hi to 
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Say hello from remote
+      shell: bash
+      run: echo Hi, ${{ inputs.name }} from remote action!
+      

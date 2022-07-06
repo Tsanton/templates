@@ -1,0 +1,21 @@
+name: hello-you-remote-workflow
+
+on: 
+  workflow_call:
+    inputs:
+      name:
+        desciption: name to greet
+        type: string
+        required: true
+
+jobs:
+  example:
+    name:  Hello you remote workflow
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: hello you remote action
+      uses: ./hello-you-remote-action
+      with:
+        name: ${{ inputs.name }}

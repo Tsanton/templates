@@ -4,9 +4,9 @@ on: [workflow_call]
 
 jobs:
   example:
-    name:  Hello remote example
+    name:  Hello remote workflow
     runs-on: ubuntu-latest
     
     steps:
-    - name: Run a one-line script
+    - name: Run a remote one-liner
       run: echo Hello from remote workflow!
