@@ -19,4 +19,3 @@ runs:
       run: |
         chmod +x ${{ inputs.file_path }}${{ inputs.file_name }}
         ${{ inputs.file_path }}${{ inputs.file_name }}
-
