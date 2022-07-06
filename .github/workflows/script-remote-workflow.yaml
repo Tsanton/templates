@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
-      with:
-        repository: Tsanton/templates
-        path: tools
+    # - uses: actions/checkout@v3
+    #   with:
+    #     repository: Tsanton/templates
+    #     path: tools
     - name: Run script
       uses: Tsanton/templates/script-remote-action@master

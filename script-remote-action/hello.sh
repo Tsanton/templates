@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "Hello from a script!"
+echo "Hello from a remote script!"
