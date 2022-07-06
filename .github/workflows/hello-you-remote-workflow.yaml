@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       name:
-        desciption: name to greet
+        description: name to greet
         type: string
         required: true
 
