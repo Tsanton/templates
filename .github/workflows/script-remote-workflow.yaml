@@ -2,15 +2,21 @@ name: script-remote-workflow
 
 on: [workflow_call]
 
+# Pass file_name, file_path, checkout_repo:bool, repo_name, repo_path
+
 jobs:
   example:
     name:  run script remote workflow
     runs-on: ubuntu-latest
     
     steps:
-    # - uses: actions/checkout@v3
-    #   with:
-    #     repository: Tsanton/templates
-    #     path: tools
+    - uses: actions/checkout@v3
+      # if: inputs.checkout_repo
+      with:
+        repository: Tsanton/templates
+        path: tools
     - name: Run script
       uses: Tsanton/templates/script-remote-action@master
+      with:
+        file_name: hello_remote.sh
+        file_path: ./tools/script-remote-action/
