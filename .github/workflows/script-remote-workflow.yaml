@@ -1,0 +1,15 @@
+name: script-remote-workflow
+
+on: [workflow_call]
+
+jobs:
+  example:
+    name:  run script remote workflow
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run script
+      uses: ./script-remote-action
+
+
