@@ -1,0 +1,11 @@
+name: script-remote-action
+description: Runs a remote hello world script
+runs:
+  using: "composite"
+  steps:
+    - name: Run script
+      shell: bash
+      run: |
+        chmod +x ./script-remote-action/hello.sh
+        ./script-remote-action/hello.sh
+
