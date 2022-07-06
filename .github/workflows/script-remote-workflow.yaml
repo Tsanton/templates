@@ -13,6 +13,4 @@ jobs:
         repository: Tsanton/templates
         path: tools
     - name: Run script
-      uses: ./script-remote-action
-
-
+      uses: Tsanton/templates/script-remote-action@master
