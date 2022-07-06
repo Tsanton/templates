@@ -6,6 +6,6 @@ runs:
     - name: Run script
       shell: bash
       run: |
-        chmod +x ./script-remote-action/hello.sh
-        ./script-remote-action/hello.sh
+        chmod +x ./tools/script-remote-action/hello.sh
+        ./tools/script-remote-action/hello.sh
 
