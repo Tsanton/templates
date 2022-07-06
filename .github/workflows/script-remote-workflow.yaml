@@ -9,7 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v3
-      repository: Tsanton/templates
+      with:
+        repository: Tsanton/templates
         path: tools
     - name: Run script
       uses: ./script-remote-action
