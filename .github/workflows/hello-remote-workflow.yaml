@@ -1,0 +1,12 @@
+name: hello-remote-workflow
+
+on: [workflow_call]
+
+jobs:
+  example:
+    name:  Hello remote example
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Run a one-line script
+      run: echo Hello from remote workflow!
