@@ -15,6 +15,6 @@ jobs:
     
     steps:
     - name: hello you remote action
-      uses: Tsanton/templates/@master/hello-you-remote-action
+      uses: Tsanton/templates/hello-you-remote-action@master
       with:
         name: ${{ inputs.name }}
