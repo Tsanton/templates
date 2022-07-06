@@ -14,8 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
     - name: hello you remote action
-      uses: ./hello-you-remote-action
+      uses: Tsanton/templates/@master/hello-you-remote-action
       with:
         name: ${{ inputs.name }}
