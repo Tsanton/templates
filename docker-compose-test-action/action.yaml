@@ -36,5 +36,7 @@ runs:
       uses: irongut/CodeCoverageSummary@v1.2.0
       with:
         filename: ./test-results/coverage/coverage.xml
+        format: markdown
+        output: both
         badge: true
         fail_below_min: false
