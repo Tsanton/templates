@@ -5,6 +5,10 @@ inputs:
     description: "absolute file path to compose file"
     required: true
   
+  test_service_name:
+    description: "The name of the test service to attach to"
+    required: true
+  
   additional_compose_files:
     description: "absolute file paths to additional compose files"
     required: false
@@ -12,7 +16,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Echo command
+    - name: Docker compose test
       shell: bash
       run: |
         additional_compose_command=""
@@ -20,8 +24,5 @@ runs:
         declare -a array=(${{ inputs.additional_compose_files}})
         for element in "${array[@]}"; do additional_compose_command="$additional_compose_command -f "$element; done
 
-        echo docker-compose -f ${{ inputs.compose_file }} $additional_compose_command build
+        docker-compose -f ${{ inputs.compose_file }} $additional_compose_command run --rm ${{ inputs.test_service_name }}
 
-    # - name: Docker compose build
-    #   shell: bash
-    #   run: docker-compose -f ${{ inputs.compose_file }} build
