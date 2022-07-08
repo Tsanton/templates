@@ -4,6 +4,9 @@ inputs:
   compose_file:
     description: "absolute file path to compose file"
     required: true
+  service_name:
+    description: "The name of the service to push"
+    required: true
   
   tags:
     description: "tags to push"
@@ -24,6 +27,12 @@ runs:
 
     #     docker-compose -f ${{ inputs.compose_file }} $additional_compose_command run --rm ${{ inputs.test_service_name }}
 
+    # - name: Docker compose push
+    #   shell: bash
+    #   run: docker-compose -f ${{ inputs.compose_file }} push
+
     - name: Docker compose push
       shell: bash
-      run: docker-compose -f ${{ inputs.compose_file }} push
+      run: |
+        image=$(yq  -r '.services.${{ inputs.service_name }}.image' ${{ inputs.compose_file}})
+        echo $image
