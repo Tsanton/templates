@@ -28,12 +28,13 @@ runs:
 
     - name: Publish test results
       uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
       with:
         files: "./test-results/xunit/*.xml"
 
     - name: Publish coverage results
       uses: irongut/CodeCoverageSummary@v1.2.0
       with:
-        filename: ./test-results/coverage-reports/coverage.xml
+        filename: ./test-results/coverage-reports/*.xml
         badge: true
         fail_below_min: false
