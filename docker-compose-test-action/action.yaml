@@ -17,7 +17,7 @@ runs:
       run: |
         additional_compose_command=""
         delimiter=" "
-        declare -a array=($(echo ${{ inputs.additional_compose_files}} (|) tr "$delimiter" " "))
+        declare -a array=(${{ inputs.additional_compose_files}})
         for element in "${array[@]}"; do additional_compose_command="$additional_compose_command -f "$element; done
 
         echo docker-compose -f ${{ inputs.compose_file }} $additional_compose_command build
