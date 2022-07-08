@@ -29,4 +29,17 @@ runs:
     - name: Publish test results
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
-        files: "./test-results/**/*.xml"
+        files: "./test-results/xunit/*.xml"
+
+    - name: Publish coverage results
+      uses: irongut/CodeCoverageSummary@v1.2.0
+      with:
+        filename: coverage.cobertura.xml
+        badge: true
+        fail_below_min: true
+
+      uses: irongut/CodeCoverageSummary@v1.2.0
+      with:
+        filename: ./test-results/coverage-reports/coverage.xml
+        fail_below_min: false
+      
