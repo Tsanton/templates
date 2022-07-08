@@ -1,5 +1,5 @@
-name: docker-login
-description: Log in to docker registry
+name: docker-compose-build
+description: Build docker image with docker-compose
 inputs:
   compose_file:
     description: "absolute file path to compose file"
@@ -8,5 +8,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Login to the Registry
+    - name: Docker compose build
+      shell: bash
       run: docker-compose -f ${{ inputs.compose_file }} build
