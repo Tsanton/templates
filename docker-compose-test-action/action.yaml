@@ -14,7 +14,7 @@ runs:
   steps:
     - name: Echo command
       shell: bash
-      run: echo docker-compose -f ${{ inputs.compose_file }} build
+      run: echo docker-compose -f ${{ inputs.compose_file }} -f ${{ inputs.additional_compose_files}} build
     # - name: Docker compose build
     #   shell: bash
     #   run: docker-compose -f ${{ inputs.compose_file }} build
