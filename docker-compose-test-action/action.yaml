@@ -14,14 +14,14 @@ runs:
   steps:
     - name: Echo command
       shell: bash
-      run: << EOF
+      run: |
         additional_compose_command=""
         delimiter=" "
-        declare -a array=($(echo ${{ inputs.additional_compose_files}} | tr "$delimiter" " "))
+        declare -a array=($(echo ${{ inputs.additional_compose_files}} (|) tr "$delimiter" " "))
         for element in "${array[@]}"; do additional_compose_command="$additional_compose_command -f "$element; done
 
         echo docker-compose -f ${{ inputs.compose_file }} $additional_compose_command build
-        EOF
+
     # - name: Docker compose build
     #   shell: bash
     #   run: docker-compose -f ${{ inputs.compose_file }} build
