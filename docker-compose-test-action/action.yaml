@@ -26,29 +26,15 @@ runs:
 
         docker-compose -f ${{ inputs.compose_file }} $additional_compose_command run --rm ${{ inputs.test_service_name }}
 
-    # - name: Publish test results
-    #   uses: EnricoMi/publish-unit-test-result-action@v1
-    #   if: always()
-    #   with:
-    #     files: ./test-results/xunit/*.xml
-
-    - name: ls dir
-      shell: bash
-      run: |
-        ls ./test-results/
-        ls ./test-results/coverage-reports/
-
     - name: Publish test results
-      uses: dorny/test-reporter@v1
+      uses: EnricoMi/publish-unit-test-result-action@v1
       if: always()
       with:
-        name: Test results
-        path: ./test-results/xunit/*.xml
-        reporter: jest-junit
+        files: ./test-results/xunit/*.xml
 
     - name: Publish coverage results
       uses: irongut/CodeCoverageSummary@v1.2.0
       with:
-        filename: ./test-results/coverage-reports/*.xml
+        filename: ./test-results/coverage/*.xml
         badge: true
         fail_below_min: false
