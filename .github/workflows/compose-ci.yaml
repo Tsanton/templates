@@ -1,0 +1,81 @@
+name: docker-compose-ci
+
+on: 
+  workflow_call:
+    inputs:
+      compose_file:
+        description: The path to the compose file being built
+        type: string
+        required: true
+
+      additional_compose_files:
+        description: A literal block scalar with additional compose files to utilize during the test step
+        type: string
+        required: true
+
+      tags:
+        description: A literal block scalar with tags to push to docker registry
+        type: string
+        required: true
+
+      run_test:
+        description: Indicates whether or not to run tests
+        type: boolean
+        required: true
+      
+      test_service_name:
+        description: The name of the service to run during docker-compose run tests
+        type: string
+        required: false
+
+      docker_registry:
+        description:
+        type: string
+        default: docker.io
+    
+    secrets:
+      docker_registry_uid:
+        description: Target docker registry UID
+        required: true
+
+      docker_registry_pwd:
+        description: Target docker registry PWD
+        required: true
+
+jobs:
+  build:
+    name: docker compose ci
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Echo environments
+      shell: bash
+      run: printenv
+
+    - name: Docker registry login
+      uses: Tsanton/templates/docker-registry-login-action@master
+      with:
+        registry_username: ${{ secrets.docker_registry_uid }}
+        registry_password: ${{ secrets.docker_registry_pwd }}
+        registry_url: ${{ inputs.docker_registry }}
+
+    - name: Docker compose build
+      uses: Tsanton/templates/docker-compose-build-action@master
+      with:
+        compose_file: ${{ inputs.compose_file }}
+
+    - name: Docker compose test
+      if: ${{ inputs.run_test == true }} 
+      uses: Tsanton/templates/docker-compose-test-action@master
+      with:
+        compose_file: ${{ inputs.compose_file }}
+        test_service_name: ${{ inputs.test_service_name }}   
+        additional_compose_files: ${{ inputs.additional_compose_files }}   
+
+    - name: Docker compose push
+      uses: Tsanton/templates/docker-compose-push-action@master
+      with:
+        compose_file: ${{ inputs.compose_file }}
+        tags: ${{ inputs.tags }}
