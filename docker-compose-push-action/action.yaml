@@ -17,11 +17,17 @@ runs:
     - name: Docker compose push
       shell: bash
       run: |
+        echo "starting"
         serviceImage=$(yq  -r '.services.${{ inputs.service_name }}.image' ${{ inputs.compose_file}})
+        echo "serviceImage: ${serviceImage}"
+
         substr=":"
         baseImage=${serviceImage%%$substr*}
+        echo "baseImage: ${baseImage}"
         
         declare -a tagArray=($tags)
+
+        for element in "${tagArray[@]}"; do echo $element; done 
 
         for element in "${tagArray[@]}"; do
           imageTagName="${baseImage}:${element}"
