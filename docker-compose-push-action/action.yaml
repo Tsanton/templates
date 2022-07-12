@@ -4,9 +4,6 @@ inputs:
   compose_file:
     description: "absolute file path to compose file"
     required: true
-  service_name:
-    description: "The name of the service to push"
-    required: true
   tags:
     description: "tags to push"
     required: true
@@ -17,7 +14,7 @@ runs:
     - name: Docker compose push
       shell: bash
       run: |
-        serviceImage=$(yq  -r '.services.${{ inputs.service_name }}.image' ${{ inputs.compose_file}})
+        serviceImage=$(yq  -r '.services.*.image' ${{ inputs.compose_file}})
         substr=":"
         baseImage=${serviceImage%%$substr*}
         
