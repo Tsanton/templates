@@ -7,7 +7,6 @@ inputs:
   service_name:
     description: "The name of the service to push"
     required: true
-  
   tags:
     description: "tags to push"
     required: false
@@ -15,22 +14,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # - name: Docker compose push
-    #   shell: bash
-    #   run: |
-    #     delimiter=" "
-    #     declare -a array=(${{ inputs.tags}})
-    #     for element in "${array[@]}"; 
-    #       do additional_compose_command="$additional_compose_command -f "$element;
-    #       docker-compose -f ${{ inputs.compose_file }} push 
-    #     done
-
-    #     docker-compose -f ${{ inputs.compose_file }} $additional_compose_command run --rm ${{ inputs.test_service_name }}
-
-    # - name: Docker compose push
-    #   shell: bash
-    #   run: docker-compose -f ${{ inputs.compose_file }} push
-
     - name: Docker compose push
       shell: bash
       run: |
@@ -42,6 +25,7 @@ runs:
 
         for element in "${tagArray[@]}"; do
           imageTagName="${baseImage}:${element}"
-          docker tag ${serviceImage} ${imageTagName}
+          docker tag $serviceImage $imageTagName
+          echo "pushing ${imageTagName}"
           docker push ${imageTagName}
         done
