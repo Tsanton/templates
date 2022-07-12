@@ -34,5 +34,7 @@ runs:
     - name: Docker compose push
       shell: bash
       run: |
-        image=$(yq  -r '.services.${{ inputs.service_name }}.image' ${{ inputs.compose_file}})
-        echo $image
+        serviceImage=$(yq  -r '.services.${{ inputs.service_name }}.image' ${{ inputs.compose_file}})
+        substr=":"
+        baseImage=${serviceImage%%$substr*}
+        echo $baseImage
