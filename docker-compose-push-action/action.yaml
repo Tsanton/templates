@@ -9,7 +9,7 @@ inputs:
     required: true
   tags:
     description: "tags to push"
-    required: false
+    required: true
 
 runs:
   using: "composite"
@@ -26,6 +26,7 @@ runs:
         echo "baseImage: ${baseImage}"
         
         declare -a tagArray=($tags)
+        echo "array length: ${tagArray[@]}"
 
         for element in "${tagArray[@]}"; do echo $element; done 
 
