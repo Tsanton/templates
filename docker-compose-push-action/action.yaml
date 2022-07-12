@@ -37,4 +37,11 @@ runs:
         serviceImage=$(yq  -r '.services.${{ inputs.service_name }}.image' ${{ inputs.compose_file}})
         substr=":"
         baseImage=${serviceImage%%$substr*}
-        echo $baseImage
+        
+        declare -a tagArray=($tags)
+
+        for element in "${tagArray[@]}"; do
+          imageTagName="${baseImage}:${element}"
+          docker tag ${serviceImage} ${imageTagName}
+          docker push ${imageTagName}
+        done
