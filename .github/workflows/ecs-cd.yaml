@@ -1,0 +1,56 @@
+name: ecs-cd
+
+on: 
+  workflow_call:
+    inputs:
+      aws_region:
+        description: Which AWS region we're deploying to
+        type: string
+        required: true
+
+      cluster_name:
+        description: The name of ECS cluster we're deploy into
+        type: string
+        required: false
+
+      service_name:
+        description: The name of the ECS service we're deploy into
+        type: string
+        required: true
+
+      task_definition_path:
+        description: The <path>/<to>/task-definition.json
+        type: string
+        required: true
+    
+    secrets:
+      aws_access_key_id:
+        description: Target docker registry UID
+        required: true
+
+      aws_secret_access_key:
+        description: Target docker registry PWD
+        required: true
+
+jobs:
+  ecs-cd:
+    name: ECS CD
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.aws_access_key_id }}
+        aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+        aws-region: ${{ inputs.aws_region }}
+
+    - name: Deploy to Amazon ECS
+      uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+      with:
+        cluster: ${{ inputs.cluster_name }} 
+        service: ${{ inputs.service_name }} 
+        task-definition: ${{ inputs.task_definition_path }}
+        wait-for-service-stability: true
