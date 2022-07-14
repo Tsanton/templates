@@ -1,4 +1,4 @@
-name: hello-you-remote-workflow
+name: hello-you-workflow
 
 on: 
   workflow_call:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   example:
-    name:  Hello you remote workflow
+    name:  Hello you reusable workflow
     runs-on: ubuntu-latest
     
     steps:

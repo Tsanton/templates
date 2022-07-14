@@ -1,4 +1,4 @@
-name: script-remote-workflow
+name: script-workflow
 
 on: [workflow_call]
 
@@ -6,12 +6,11 @@ on: [workflow_call]
 
 jobs:
   example:
-    name:  run script remote workflow
+    name:  run script reusable workflow
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
-      # if: inputs.checkout_repo
       with:
         repository: Tsanton/templates
         path: tools
