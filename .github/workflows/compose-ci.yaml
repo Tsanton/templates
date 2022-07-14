@@ -50,10 +50,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Echo environments
-      shell: bash
-      run: printenv
-
     - name: Docker registry login
       uses: Tsanton/templates/docker-registry-login-action@master
       with:
