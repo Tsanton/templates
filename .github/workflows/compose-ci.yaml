@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       compose_file:
-        description: The path to the compose file being built
+        description: The path to the compose file we're building
         type: string
         required: true
 
@@ -29,7 +29,7 @@ on:
         required: false
 
       docker_registry:
-        description:
+        description: Base registry, see https://github.com/docker/login-action#usage for more registry info
         type: string
         default: docker.io
     

@@ -2,6 +2,7 @@
 
 This reusable workflow is intended to generically handle continuous integration (CI) for dockerized applications. \
 It does so by running the following steps:
+- Checking out the respository from which the remote workflow is called
 - Docker registry login
 - Docker compose build image
 - Docker compose run tests (optional)
